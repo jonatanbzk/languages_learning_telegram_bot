@@ -154,7 +154,7 @@ annual,annuel
 annually,annuellement
 another,un autre
 answer,répondre
-anti-,anti-
+anti\\-,anti\\-
 anticipate,anticiper
 anxiety,anxiété
 anxious,anxieux
@@ -178,7 +178,7 @@ apple,Pomme
 application,application
 apply,appliquer
 appoint,nommer
-appointment,rendez-vous
+appointment,rendez\\-vous
 appreciate,apprécier
 approach,approche
 appropriate,approprié
@@ -235,7 +235,7 @@ attack,attaque
 attempt,tentative
 attempted,tentative
 attend,assister
-attend to,Occupez-vous
+attend to,Occupez\\-vous
 attention,attention
 attitude,attitude
 attorney,avocat
@@ -270,7 +270,7 @@ backwards,en arrière
 bacteria,bactéries
 bad,mauvais
 badly,mal
-bad-tempered,mauvaise humeur
+bad\\-tempered,mauvaise humeur
 bag,sac
 baggage,bagages
 bake,cuire
@@ -337,7 +337,7 @@ bet,pari
 better,mieux
 betting,pari
 between,entre
-beyond,au-delà
+beyond,au\\-delà
 bicycle,vélo
 bid 1,1 offre
 big,gros
@@ -468,7 +468,7 @@ call for,demander
 call off,raccroche
 call up,appeler
 calm,calme
-calm down,calmez-vous
+calm down,calmez\\-vous
 calmly,calmement
 camera,caméra
 camp,camp
@@ -554,7 +554,7 @@ check,vérifier
 check in,enregistrement
 check into,vérifier dans
 check on,vérifier
-check out,check-out
+check out,check\\-out
 check over,valider
 check up on,vérifier sur
 cheek,joue
@@ -643,7 +643,7 @@ come in,entrez
 come off,se détacher
 come on,Allons
 come out,sortir
-come round,fais demi-tour
+come round,fais demi\\-tour
 come to,venir à
 come up,montez
 come up to,venir à
@@ -1087,11 +1087,11 @@ effort,effort
 e.g.,par exemple.
 egg,Oeuf
 eight,huit
-eighteen,dix-huit
-eighteenth,dix-huitième
+eighteen,dix\\-huit
+eighteenth,dix\\-huitième
 eighth,huitième
-eightieth,quatre-vingtième
-eighty,quatre-vingts
+eightieth,quatre\\-vingtième
+eighty,quatre\\-vingts
 either,Soit
 elbow,coude
 elderly,personne âgée
@@ -1191,7 +1191,7 @@ everything,tout
 everywhere,partout
 evidence,preuve
 evil,mal
-ex-,ex-
+ex\\-,ex\\-
 exact,exact
 exactly,exactement
 exaggerate,exagérer
@@ -1458,7 +1458,7 @@ genuine,véritable
 genuinely,vraiment
 geography,géographie
 get,avoir
-get away,va-t-en
+get away,va\\-t\\-en
 get away with,échapper à
 get back,revenir
 get by,se débrouiller
@@ -1492,7 +1492,7 @@ glue,la colle
 go,aller
 go ahead,aller de l'avant
 goal,objectif
-go away,allez-vous en
+go away,allez\\-vous en
 go back,retourner
 go back to,revenir à
 go by,passer
@@ -1529,9 +1529,9 @@ grammar,grammaire
 grand,grandiose
 grandchild,petit enfant
 granddaughter,petite fille
-grandfather,grand-père
-grandmother,grand-mère
-grandparent,grand-parent
+grandfather,grand\\-père
+grandmother,grand\\-mère
+grandparent,grand\\-parent
 grandson,petit fils
 grant,subvention
 grass,herbe
@@ -1616,7 +1616,7 @@ heel,talon
 height,la taille
 hell,enfer
 hello,Bonjour
-help,Aidez-moi
+help,Aidez\\-moi
 helpful,utile
 help out,venir en aide
 hence,Par conséquent
@@ -1634,7 +1634,7 @@ highly,très
 highway,Autoroute
 hill,colline
 him,lui
-himself,lui-même
+himself,lui\\-même
 hip,hanche
 hire,louer
 hire out,embaucher des
@@ -1684,7 +1684,7 @@ hungry,faim
 hunt,chasse
 hunting,chasse
 hurry,se dépêcher
-hurry up,Dépêchez-vous
+hurry up,Dépêchez\\-vous
 hurt,blesser
 husband,mari
 I,je
@@ -1693,7 +1693,7 @@ ice cream,crème glacée
 idea,idée
 ideal,idéal
 identify,identifier
-identify with,Identifiez-vous avec
+identify with,Identifiez\\-vous avec
 identity,identité
 i.e.,c'est à dire.
 if,si
@@ -1828,7 +1828,7 @@ issue,problème
 it,il
 item,article
 its,ses
-itself,lui-même
+itself,lui\\-même
 jacket,veste
 jam,confiture
 January,janvier
@@ -2036,7 +2036,7 @@ majority,majorité
 make,faire
 make into,faire en
 make up,maquillage
-make-up,maquillage
+make\\-up,maquillage
 make up for,compenser
 male,Masculin
 mall,centre commercial
@@ -2105,7 +2105,7 @@ message,message
 metal,métal
 method,méthode
 metre,mètre
-mid-,milieu-
+mid\\-,milieu\\-
 midday,midi
 middle,milieu
 midnight,minuit
@@ -2236,8 +2236,8 @@ nicely,bien
 niece,nièce
 night,nuit
 nine,neuf
-nineteen,dix-neuf
-nineteenth,dix-neuvième
+nineteen,dix\\-neuf
+nineteenth,dix\\-neuvième
 ninetieth,ninetieth
 ninety,quatre vingt dix
 ninth,neuvième
@@ -2246,7 +2246,7 @@ nobody,personne
 noise,bruit
 noisily,à grand bruit
 noisy,bruyant
-non-,non-
+non\\-,non\\-
 none,aucun
 nonsense,absurdité
 no one,personne
@@ -2306,7 +2306,7 @@ oh,Oh
 oil,pétrole
 OK,D'accord
 old,vieux
-old-fashioned,démodé
+old\\-fashioned,démodé
 on,sur
 once,une fois que
 one,une
@@ -2346,7 +2346,7 @@ otherwise,autrement
 ought to,devrait
 our,notre
 ours,les notres
-ourselves,nous-mêmes
+ourselves,nous\\-mêmes
 out,en dehors
 outdoor,Extérieur
 outdoors,en plein air
@@ -2433,7 +2433,7 @@ perfectly,à la perfection
 perform,effectuer
 performance,performance
 performer,interprète
-perhaps,peut-être
+perhaps,peut\\-être
 period,période
 permanent,permanent
 permanently,en permanence
@@ -2483,7 +2483,7 @@ planning,Planification
 plant,plante
 plastic,Plastique
 plate,assiette
-platform,Plate-forme
+platform,Plate\\-forme
 play,jouer
 play about,jouer
 player,joueur
@@ -2532,7 +2532,7 @@ possess,posséder
 possession,possession
 possibility,possibilité
 possible,possible
-possibly,peut-être
+possibly,peut\\-être
 post,Publier
 post office,bureau de poste
 pot,pot
@@ -2653,7 +2653,7 @@ pull down,tirer vers le bas
 pull in,tirer dans
 pull off,retirer
 pull out,extraire
-pull over,arrêtez-vous
+pull over,arrêtez\\-vous
 pull through,tirer
 pull together,Rassembler
 pull up,remonter
@@ -2715,7 +2715,7 @@ rarely,rarement
 rate,taux
 rather,plutôt
 raw,brut
-re-,ré-
+re\\-,ré\\-
 reach,atteindre
 react,réagir
 reaction,réaction
@@ -2975,7 +2975,7 @@ see to,veiller à
 select,sélectionner
 selection,sélection
 self,soi
-self-,soi-
+self\\-,soi\\-
 sell,vendre
 sell off,liquider
 sell out,vendu
@@ -3009,10 +3009,10 @@ settle,régler
 settle down,s'installer
 set up,installer
 seven,Sept
-seventeen,dix-sept
+seventeen,dix\\-sept
 seventh,septième
-seventieth,soixante-dixième
-seventy,soixante-dix
+seventieth,soixante\\-dixième
+seventy,soixante\\-dix
 several,nombreuses
 severe,sévère
 severely,gravement
@@ -3068,7 +3068,7 @@ shut,fermer
 shut down,fermer
 shut in,enfermé
 shut out,exclure
-shut up,tais-toi
+shut up,tais\\-toi
 shy,timide
 sick,malade
 side,côté
@@ -3099,7 +3099,7 @@ sink,évier
 sir,Monsieur
 sister,sœur
 sit,asseoir
-sit down,asseyez-vous
+sit down,asseyez\\-vous
 site,site
 situation,situation
 six,six
@@ -3570,7 +3570,7 @@ Tuesday,Mardi
 tune,régler
 tunnel,tunnel
 turn,tour
-turn back,faire demi-tour
+turn back,faire demi\\-tour
 turn down,refuser
 turn into,changer en
 turn off,éteindre
@@ -3612,8 +3612,8 @@ underground,souterrain
 underneath,sous
 understand,comprendre
 understanding,compréhension
-underwater,sous-marin
-underwear,sous-vêtements
+underwater,sous\\-marin
+underwear,sous\\-vêtements
 undo,annuler
 unemployed,sans emploi
 unemployment,chômage

@@ -1,10 +1,10 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const Telegraf = require('telegraf');
-const Markup = require("telegraf/markup");
-const Stage = require("telegraf/stage");
-const session = require("telegraf/session");
-const WizardScene = require("telegraf/scenes/wizard");
+const Markup = require('telegraf/markup');
+const Stage = require('telegraf/stage');
+const session = require('telegraf/session');
+const WizardScene = require('telegraf/scenes/wizard');
 
 const words = require('./words');
 
@@ -30,8 +30,8 @@ bot.start(ctx => {
   ctx.reply(
       `Hello ${ctx.from.first_name}! ${welcomeTxt}`,
       Markup.inlineKeyboard([
-        Markup.callbackButton("Ask me", "ask_me"),
-        Markup.callbackButton("Change the questions direction", "question_direction")
+        Markup.callbackButton('Ask me', 'ask_me'),
+        Markup.callbackButton('Change the questions direction', 'question_direction')
       ]).extra()
   );
 });
@@ -40,9 +40,9 @@ bot.action('question_direction', ctx => {
     ctx.reply(
         `Choose the questions direction`,
         Markup.inlineKeyboard([
-            Markup.callbackButton("English to french", "direction_0"),
-            Markup.callbackButton("French to english", "direction_1"),
-            Markup.callbackButton("Random", "direction_2")
+            Markup.callbackButton('English to french', 'direction_0'),
+            Markup.callbackButton('French to english', 'direction_1'),
+            Markup.callbackButton('Random', 'direction_2')
         ]).extra()
     );
 });
@@ -50,26 +50,26 @@ bot.action('question_direction', ctx => {
 let questionDirection = 0;
 let randomDirectionActive = 0;
 function changeDirection (direction, ctx) {
-    let text = "";
+    let text = '';
     if (direction === 0) {
         questionDirection = 0;
         randomDirectionActive = 0;
-        text = "The questions direction is now English to French !";
+        text = 'The questions direction is now English to French !';
     }
     if (direction === 1) {
         questionDirection = 1;
         randomDirectionActive = 0;
-        text = "The questions direction is now French to English!";
+        text = 'The questions direction is now French to English!';
     }
     if (direction === 2) {
         randomDirectionActive = 1;
-        text = "The questions direction is now random !";
+        text = 'The questions direction is now random !';
     }
     ctx.reply(
         text,
         Markup.inlineKeyboard([
-            Markup.callbackButton("Ask me", "ask_me"),
-            Markup.callbackButton("Change the questions direction", "question_direction")
+            Markup.callbackButton('Ask me', 'ask_me'),
+            Markup.callbackButton('Change the questions direction', 'question_direction')
         ]).extra()
     );
 }
@@ -86,46 +86,7 @@ bot.action('direction_2', ctx => {
     changeDirection(2, ctx);
 });
 
-/*
-let questionDirection = 0;
-let randomDirectionActive = 0;
-
-bot.action('direction_0', ctx => {
-    questionDirection = 0;
-    randomDirectionActive = 0;
-    ctx.reply(
-        `The questions direction is now English to French !`,
-        Markup.inlineKeyboard([
-            Markup.callbackButton("Ask me", "ask_me"),
-            Markup.callbackButton("Change the questions direction", "question_direction")
-        ]).extra()
-    );
-});
-
-bot.action('direction_1', ctx => {
-    questionDirection = 1;
-    randomDirectionActive = 0;
-    ctx.reply(
-        `The questions direction is now French to English !`,
-        Markup.inlineKeyboard([
-            Markup.callbackButton("Ask me", "ask_me"),
-            Markup.callbackButton("Change the questions direction", "question_direction")
-        ]).extra()
-    );
-});
-
-bot.action('direction_2', ctx => {
-    randomDirectionActive = 1;
-    ctx.reply(
-        `The questions direction is now random !`,
-        Markup.inlineKeyboard([
-            Markup.callbackButton("Ask me", "ask_me"),
-            Markup.callbackButton("Change the questions direction", "question_direction")
-        ]).extra()
-    );
-});
-*/
-let currentQuestion = "";
+let currentQuestion = '';
 function question (direction, idx) {
     if (direction === 0) {
         currentQuestion = 'How do you say *' + words.enWords[idx] + '* in' +
@@ -145,39 +106,59 @@ function randomModeChooseDirection () {
     }
 }
 
-let wordsIdx = 0;
-const askMe = new WizardScene(
-    "ask_me",
-    ctx => {
-      wordsIdx = getRandomInt(3871);
+let score = 0;
+const wizard = new WizardScene(
+    'quiz_scene_id',
+    (ctx) => {
+      ctx.scene.session.wordsIdx = getRandomInt(3871);
       if (randomDirectionActive === 1) {
           randomModeChooseDirection();
       }
-      question(questionDirection, wordsIdx);
+      question(questionDirection, ctx.scene.session.wordsIdx);
       ctx.reply(currentQuestion, {parse_mode: 'MarkdownV2'});
       return ctx.wizard.next();
     },
-    ctx => {
-      ctx.wizard.state.currentQuestion = ctx.message.text;
+    (ctx) => {
+        if (ctx[ctx.updateType] === undefined) {
+            ctx.reply('Please answer to the question');
+            return;
+        }
       let result = "";
+      let answer = typeof ctx.message.text === 'string' ? ctx.message.text.toString().toLowerCase() : "";
       if (questionDirection === 0) {
-          result = ctx.message.text.toLowerCase() === words.frWords[wordsIdx].toLowerCase() ? 'Good' : `Wrong \n*${capitalizeFirstLetter(words.enWords[wordsIdx])}* translation in French is *${capitalizeFirstLetter(words.frWords[wordsIdx])}*`
+          if (answer === words.frWords[ctx.scene.session.wordsIdx].toLowerCase()) {
+              score++;
+              result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
+          } else {
+              result = `Wrong \n*${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}* translation in French is *${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}*`;
+              score = 0;
+          }
       }
       if (questionDirection === 1) {
-          result = ctx.message.text.toLowerCase() === words.enWords[wordsIdx].toLowerCase() ? 'Good' : `Wrong \n*${capitalizeFirstLetter(words.frWords[wordsIdx])}* translation in English is *${capitalizeFirstLetter(words.enWords[wordsIdx])}*`
+          if (answer === words.enWords[ctx.scene.session.wordsIdx].toLowerCase()) {
+              score++;
+              result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
+          } else {
+              result = `Wrong \n*${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}* translation in English is *${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}*`;
+              score = 0;
+          }
       }
       ctx.reply(
           result,
           Markup.inlineKeyboard([
-              Markup.callbackButton("Ask me", "ask_me"),
-              Markup.callbackButton("Change the questions direction", "question_direction")
-          ]).extra({parse_mode: 'MarkdownV2'})
+              Markup.callbackButton('Ask me', 'ask_me'),
+              Markup.callbackButton('Change the questions direction',
+                  'question_direction')])
+              .extra({parse_mode: 'MarkdownV2'})
       );
       return ctx.scene.leave();
     }
 )
 
-const stage = new Stage([askMe], { default: "ask_me" }); // Scene registration
+const stage = new Stage([wizard]);
 bot.use(session());
 bot.use(stage.middleware());
+
+bot.action('ask_me', Stage.enter('quiz_scene_id'));
+
 bot.launch();
