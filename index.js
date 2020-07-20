@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const Telegraf = require('telegraf');
+const Composer = require('telegraf/composer')
 const Markup = require('telegraf/markup');
 const Stage = require('telegraf/stage');
 const session = require('telegraf/session');
@@ -107,6 +108,58 @@ function randomModeChooseDirection () {
 }
 
 let score = 0;
+const stepHandler = new Composer()
+stepHandler.action('passAction', (ctx) => {
+    let result = "";
+    score = 0;
+    if (questionDirection === 0) {
+        result = `*${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}* translation in French is *${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}*`;
+    }
+    if (questionDirection === 1) {
+        result = `*${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}* translation in English is *${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}*`;
+    }
+    ctx.reply(
+        result,
+        Markup.inlineKeyboard([
+            Markup.callbackButton('Ask me', 'ask_me'),
+            Markup.callbackButton('Change the questions direction',
+                'question_direction')])
+            .extra({parse_mode: 'MarkdownV2'})
+    );
+    return ctx.scene.leave();
+})
+stepHandler.on('text', (ctx) => {
+    let result = "";
+    let answer = typeof ctx.message.text === 'string' ? ctx.message.text.toString().toLowerCase() : "";
+    if (questionDirection === 0) {
+        if (answer === words.frWords[ctx.scene.session.wordsIdx].toLowerCase()) {
+            score++;
+            result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
+        } else {
+            result = `Wrong \n*${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}* translation in French is *${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}*`;
+            score = 0;
+        }
+    }
+    if (questionDirection === 1) {
+        if (answer === words.enWords[ctx.scene.session.wordsIdx].toLowerCase()) {
+            score++;
+            result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
+        } else {
+            result = `Wrong \n*${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}* translation in English is *${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}*`;
+            score = 0;
+        }
+    }
+    ctx.reply(
+        result,
+        Markup.inlineKeyboard([
+            Markup.callbackButton('Ask me', 'ask_me'),
+            Markup.callbackButton('Change the questions direction',
+                'question_direction')])
+            .extra({parse_mode: 'MarkdownV2'})
+    );
+    return ctx.scene.leave();
+})
+
 const wizard = new WizardScene(
     'quiz_scene_id',
     (ctx) => {
@@ -115,44 +168,14 @@ const wizard = new WizardScene(
           randomModeChooseDirection();
       }
       question(questionDirection, ctx.scene.session.wordsIdx);
-      ctx.reply(currentQuestion, {parse_mode: 'MarkdownV2'});
+        ctx.reply(currentQuestion,
+            Markup.inlineKeyboard([
+                Markup.callbackButton('Pass', 'passAction'),
+            ]).extra({parse_mode: 'MarkdownV2'}),
+        );
       return ctx.wizard.next();
     },
-    (ctx) => {
-        if (ctx[ctx.updateType] === undefined) {
-            ctx.reply('Please answer to the question');
-            return;
-        }
-      let result = "";
-      let answer = typeof ctx.message.text === 'string' ? ctx.message.text.toString().toLowerCase() : "";
-      if (questionDirection === 0) {
-          if (answer === words.frWords[ctx.scene.session.wordsIdx].toLowerCase()) {
-              score++;
-              result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
-          } else {
-              result = `Wrong \n*${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}* translation in French is *${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}*`;
-              score = 0;
-          }
-      }
-      if (questionDirection === 1) {
-          if (answer === words.enWords[ctx.scene.session.wordsIdx].toLowerCase()) {
-              score++;
-              result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
-          } else {
-              result = `Wrong \n*${capitalizeFirstLetter(words.frWords[ctx.scene.session.wordsIdx])}* translation in English is *${capitalizeFirstLetter(words.enWords[ctx.scene.session.wordsIdx])}*`;
-              score = 0;
-          }
-      }
-      ctx.reply(
-          result,
-          Markup.inlineKeyboard([
-              Markup.callbackButton('Ask me', 'ask_me'),
-              Markup.callbackButton('Change the questions direction',
-                  'question_direction')])
-              .extra({parse_mode: 'MarkdownV2'})
-      );
-      return ctx.scene.leave();
-    }
+    stepHandler,
 )
 
 const stage = new Stage([wizard]);
