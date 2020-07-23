@@ -100,7 +100,7 @@ for (let i = 0; i < 3; i++) {
 bot.action('lang_change_1', ctx => {
     let langArray = languages.slice();
     delete langArray[lang2];
-    let buttons = Object.keys(langArray).map(key => Markup.callbackButton(langArray[key] + key, `first_lang_${key}`));
+    let buttons = Object.keys(langArray).map(key => Markup.callbackButton(langArray[key], `first_lang_${key}`));
     langArray = languages.slice();
     ctx.reply(
         `Choose the first language.`,
