@@ -150,10 +150,10 @@ for (let i = 0; i < languages.length; i++) {
 let currentQuestion = '';
 function questionGenerator (direction, idx) {
     if (direction === 0) {
-        currentQuestion = `How do you say *${words.WordsList[lang1][idx]}* in ${languages[lang2]}?`;
+        currentQuestion = `How do you say *${convertSpecialCar(words.WordsList[lang1][idx])}* in ${languages[lang2]}?`;
     }
     if (direction === 1) {
-        currentQuestion = `How do you say *${words.WordsList[lang2][idx]}* in ${languages[lang1]}?`;
+        currentQuestion = `How do you say *${convertSpecialCar(words.WordsList[lang2][idx])}* in ${languages[lang1]}?`;
     }
 }
 
@@ -165,6 +165,15 @@ function randomModeChooseQuestionDirection () {
     }
 }
 
+function convertSpecialCar (str) {
+    let convertStr = str;
+    if (str.indexOf('-') > -1) {
+        let regex2 = /-/gi;
+        convertStr = convertStr.replace(regex2, '\\-')
+    }
+    return convertStr;
+}
+
 let score = 0;
 const stepHandler = new Composer()
 // if user pass the question
@@ -172,10 +181,10 @@ stepHandler.action('passAction', (ctx) => {
     let result = "";
     score = 0;
     if (questionDirection === 0) {
-        result = `*${capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx])}* translation in ${languages[lang2]} is *${capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx])}*`;
+        result = `*${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx]))}* translation in ${languages[lang2]} is *${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx]))}*`;
     }
     if (questionDirection === 1) {
-        result = `*${capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx])}* translation in ${languages[lang1]} is *${capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx])}*`;
+        result = `*${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx]))}* translation in ${languages[lang1]} is *${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx]))}*`;
     }
     ctx.reply(
         result,
@@ -192,20 +201,20 @@ stepHandler.on('text', (ctx) => {
     let result = "";
     let answer = typeof ctx.message.text === 'string' ? ctx.message.text.toString().toLowerCase() : "";
     if (questionDirection === 0) {
-        if (answer === words.WordsList[lang2][ctx.scene.session.wordsIdx].toLowerCase()) {
+        if (convertSpecialCar(answer) === convertSpecialCar(words.WordsList[lang2][ctx.scene.session.wordsIdx].toLowerCase())) {
             score++;
             result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
         } else {
-            result = `Wrong \n*${capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx])}* translation in ${languages[lang2]} is *${capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx])}*`;
+            result = `Wrong\n*${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx]))}* translation in ${languages[lang2]} is *${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx]))}*`;
             score = 0;
         }
     }
     if (questionDirection === 1) {
-        if (answer === words.WordsList[lang1][ctx.scene.session.wordsIdx].toLowerCase()) {
+        if (convertSpecialCar(answer) === convertSpecialCar(words.WordsList[lang1][ctx.scene.session.wordsIdx].toLowerCase())) {
             score++;
             result = score < 3 ? 'Good' : `Good, ${score} in a row\\!`;
         } else {
-            result = `Wrong \n*${capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx])}* translation in ${languages[lang1]} is *${capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx])}*`;
+            result = `Wrong \n*${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang2][ctx.scene.session.wordsIdx]))}* translation in ${languages[lang1]} is *${convertSpecialCar(capitalizeFirstLetter(words.WordsList[lang1][ctx.scene.session.wordsIdx]))}*`;
             score = 0;
         }
     }
