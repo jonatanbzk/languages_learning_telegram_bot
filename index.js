@@ -10,7 +10,7 @@ const WizardScene = require('telegraf/scenes/wizard');
 
 const words = require('./words');
 
-const languages = ['English', 'French', 'Polish', 'German'];
+const languages = ['English', 'French', 'Polish', 'German', 'Vietnamese'];
 let lang1 = 0;
 let lang2 = 1;
 
