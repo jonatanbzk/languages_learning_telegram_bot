@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/jonatanbzk/edward_telegram_bot#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "csv-parser": "^2.3.3",
     "dotenv": "^8.2.0",
     "telegraf": "^3.38.0"
